@@ -58,6 +58,7 @@ export default function Home() {
           >
             Documentation
           </a>
+          <h3 className="">I am blue</h3>
         </div>
       </main>
     </div>
