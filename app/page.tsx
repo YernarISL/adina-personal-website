@@ -3,6 +3,7 @@ import ModeToggle from "../components/ModeToggle";
 import LocalTime from "@/components/LocalTime";
 import { NotebookPen } from "lucide-react";
 
+
 export default function Home() {
   return (
     <div className="min-h-screen p-8 md:p-16">
