@@ -75,6 +75,8 @@ import "@/components/tiptap-templates/simple/simple-editor.scss"
 
 import content from "@/components/tiptap-templates/simple/data/content.json"
 
+import { saveEssay } from "@/app/admin/new-essay/actions"
+
 const MainToolbarContent = ({
   onHighlighterClick,
   onLinkClick,
@@ -191,6 +193,10 @@ export function SimpleEditor() {
   )
   const toolbarRef = useRef<HTMLDivElement>(null)
 
+  const [title, setTitle] = useState("")
+  const [essayId, setEssayId] = useState<string | null>(null)
+  const [status, setStatus] = useState("Pending...")
+
   const editor = useEditor({
     immediatelyRender: false,
     editorProps: {
@@ -228,9 +234,31 @@ export function SimpleEditor() {
         onError: (error) => console.error("Upload failed:", error),
       }),
     ],
-    content,
+    content: "",
   })
+  
+  useEffect(() => {
+    if (!editor || !title) return
 
+    const handler = setTimeout(async () => {
+      setStatus("Saving...")
+      try {
+        const contentJson = JSON.parse(JSON.stringify(editor.getJSON()))
+        const saved = await saveEssay(essayId, title, contentJson)
+        if (saved.success && saved.id) {
+          setEssayId(saved.id);
+          setStatus("Saved to " + new Date().toLocaleTimeString());
+        } else {
+          setStatus("Save error: " + saved.error);
+        }
+      } catch (e) {
+        setStatus(`Save error: ${e}`)
+      }
+    }, 2000) // 2 секунды задержки
+
+    return () => clearTimeout(handler)
+  }, [title, editor, editor?.state.doc, essayId])
+  
   const rect = useCursorVisibility({
     editor,
     overlayHeight: toolbarRef.current?.getBoundingClientRect().height ?? 0,
@@ -268,12 +296,25 @@ export function SimpleEditor() {
             />
           )}
         </Toolbar>
+        
+        <div className="max-w-[700px] mx-auto pt-12 px-4">
+          <div className="text-[10px] text-muted-foreground uppercase tracking-widest mb-2 px-1">
+             {status}
+          </div>
+          <input
+            type="text"
+            placeholder="Untitled"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            className="w-full text-4xl font-bold bg-transparent border-none outline-none placeholder:text-muted-foreground/30 mb-4"
+          />
 
         <EditorContent
           editor={editor}
           role="presentation"
           className="simple-editor-content"
         />
+      </div>
       </EditorContext.Provider>
     </div>
   )

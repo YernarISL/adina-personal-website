@@ -1,5 +1,7 @@
 import Link from "next/link";
 import ModeToggle from "../components/ModeToggle";
+import LocalTime from "@/components/LocalTime";
+import { NotebookPen } from "lucide-react";
 
 export default function Home() {
   return (
@@ -19,8 +21,8 @@ export default function Home() {
             этом сайте благодаря библиотеке TipTap и моему опыту работы с ним.
           </p>
           <p className="text-lg text-muted-foreground mb-4">
-            Все твои эссешки будут храниться на базе данных PostgreSQL. Если
-            нужно что-то изменить или доработать, ты знаешь кому обращаться
+            Все твои эссешки будут храниться в базе данных PostgreSQL. Если
+            нужно что-то изменить или доработать, ты знаешь, к кому обращаться
           </p>
         </div>
         <div className="mb-8">
@@ -60,9 +62,13 @@ export default function Home() {
             </svg>
             <p>shymkent</p>
           </div>
-          <p className="text-sm text-muted-foreground">
-            {`${new Date().getHours()}:${new Date().getMinutes()}`} localtime
-          </p>
+          <LocalTime />
+        </div>
+        <div className="mb-6 text-muted-foreground">
+          <Link href="admin/new-essay" className="group flex items-center gap-2 text-muted-foreground transition-colors hover:text-foreground">
+              <NotebookPen className="h-5 w-5 transition-colors group-hover:text-foreground"/>
+              <span>Write essay</span>
+          </Link>
         </div>
         <div className="mb-8">
           <div className="flex flex-wrap gap-4 mb-6 text-muted-foreground">
