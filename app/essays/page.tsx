@@ -1,7 +1,6 @@
 import Link from "next/link";
 import ModeToggle from "@/components/ModeToggle";
 import { prisma } from "@/lib/prisma";
-import { Essay } from "@prisma/client";
 
 export default async function Essays() {
   const essays = await prisma.essay.findMany({
@@ -24,7 +23,7 @@ export default async function Essays() {
           <h1 className="text-3xl md:text-4xl font-medium mb-4">essays</h1>
         </div>
         <div className="space-y-8">
-          {essays.map((essay : Essay) => (
+          {essays.map((essay : any) => (
             <Link
               key={essay.id}
               href={`/essays/${essay.id}`}
