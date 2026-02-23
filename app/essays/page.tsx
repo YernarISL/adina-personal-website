@@ -23,7 +23,7 @@ export default async function Essays() {
           <h1 className="text-3xl md:text-4xl font-medium mb-4">essays</h1>
         </div>
         <div className="space-y-8">
-          {essays.map((essay) => (
+          {essays.map((essay : any) => (
             <Link
               key={essay.id}
               href={`/essays/${essay.id}`}
