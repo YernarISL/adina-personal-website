@@ -3,6 +3,8 @@ import ModeToggle from "@/components/ModeToggle";
 import { prisma } from "@/lib/prisma";
 import { Essay } from "@prisma/client";
 
+export const dynamic = "force-dynamic";
+
 export default async function Essays() {
   const essays = await prisma.essay.findMany({
     orderBy: { createdAt: "desc" },
@@ -36,7 +38,7 @@ export default async function Essays() {
                     {essay.title}
                   </h2>
                   <p className="text-sm text-muted-foreground">
-                    {new Date(essay.createdAt).toLocaleDateString("en-Us", {
+                    {new Date(essay.createdAt).toLocaleDateString("en-US", {
                       day: "numeric",
                       month: "long",
                       year: "numeric",

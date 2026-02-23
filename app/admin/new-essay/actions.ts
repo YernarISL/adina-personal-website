@@ -29,6 +29,7 @@ export async function saveEssay(
     }
 
     revalidatePath("/");
+    revalidatePath("/essays");
     return {
       id: essay.id,
       title: essay.title,
