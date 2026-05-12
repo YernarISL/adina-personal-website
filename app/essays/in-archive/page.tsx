@@ -3,6 +3,8 @@ import ModeToggle from "@/components/ModeToggle";
 import DeleteEssaysModal from "./components/delete-essays-modal";
 import { prisma } from "@/lib/prisma";
 
+export const dynamic = "force-dynamic";
+
 export default async function InArchive() {
   const essaysInArchive = await prisma.essay.findMany({
     where: {
