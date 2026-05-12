@@ -8,7 +8,7 @@ export default function Page() {
         <ModeToggle />
       </div>
       <div className="flex items-center justify-center min-h-screen">
-        <SignIn />
+        <SignIn signUpUrl="/sign-in" />
       </div>
     </div>
   );
