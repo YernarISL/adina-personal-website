@@ -1,11 +1,6 @@
+import ModeToggle from "@/components/ModeToggle";
 import Link from "next/link";
 import StarterKit from "@tiptap/starter-kit";
-import ModeToggle from "@/components/ModeToggle";
-import ArchiveEssayModal from "./components/archive-essay-modal";
-import { prisma } from "@/lib/prisma";
-import { notFound } from "next/navigation";
-import { generateHTML } from "@tiptap/html";
-import { JSONContent } from "@tiptap/core";
 import { Ellipsis } from "lucide-react";
 import {
   DropdownMenu,
@@ -13,8 +8,14 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
+import { prisma } from "@/lib/prisma";
+import { notFound } from "next/dist/client/components/navigation";
+import { generateHTML } from "@tiptap/html";
+import { JSONContent } from "@tiptap/core";
+import RestoreButton from "../components/restore-button";
+import DeleteEssayModal from "../components/delete-essay-modal";
 
-export default async function EssayPage({
+export default async function InArchiveEssayPage({
   params,
 }: {
   params: Promise<{ id: string }>;
@@ -43,21 +44,18 @@ export default async function EssayPage({
             ← back
           </Link>
           <div className="flex gap-4 items-center">
-            <Link
-              href={`/admin/editor?id=${essay.id}`}
-              className="text-muted-foreground hover:text-primary transition-colors cursor-pointer mb-4 inline-block"
-            >
-              edit
-            </Link>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <button className="text-muted-foreground hover:text-primary transition-colors cursor-pointer mb-3 inline-block">
                   <Ellipsis />
                 </button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent className="bg-background border border-border rounded-md p-2">
+              <DropdownMenuContent className="flex flex-col bg-background border border-border rounded-md p-2 gap-2">
                 <DropdownMenuItem asChild>
-                  <ArchiveEssayModal essayId={essay.id} />
+                    <RestoreButton essayId={essay.id} />
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                    <DeleteEssayModal essayId={essay.id} />
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>

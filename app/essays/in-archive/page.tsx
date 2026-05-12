@@ -1,16 +1,13 @@
 import Link from "next/link";
 import ModeToggle from "@/components/ModeToggle";
+import DeleteEssaysModal from "./components/delete-essays-modal";
 import { prisma } from "@/lib/prisma";
-import { Essay } from "@prisma/client";
 
-export const dynamic = "force-dynamic";
-
-export default async function Essays() {
-  const essays = await prisma.essay.findMany({
+export default async function InArchive() {
+  const essaysInArchive = await prisma.essay.findMany({
     where: {
-      deletedAt: null,
+      deletedAt: { not: null },
     },
-    orderBy: { createdAt: "desc" },
   });
 
   return (
@@ -21,20 +18,22 @@ export default async function Essays() {
       <main className="max-w-4xl mx-auto">
         <div className="mb-12">
           <Link
-            href="/"
+            href="/essays"
             className="text-muted-foreground hover:text-primary transition-colors cursor-pointer mb-4 inline-block"
           >
-            ← back to home
+            ← back
           </Link>
           <div className="flex justify-between items-center">
-            <h1 className="text-3xl md:text-4xl font-medium mb-4">essays</h1>
+            <h1 className="text-3xl md:text-4xl font-medium mb-4">archive</h1>
+            <DeleteEssaysModal />
           </div>
         </div>
+
         <div className="space-y-8">
-          {essays.map((essay: Essay) => (
+          {essaysInArchive.map((essay) => (
             <Link
               key={essay.id}
-              href={`/essays/${essay.id}`}
+              href={`/essays/in-archive/${essay.id}`}
               className="group block"
             >
               <article className="border-b border-border pb-8">
@@ -43,7 +42,7 @@ export default async function Essays() {
                     {essay.title}
                   </h2>
                   <p className="text-sm text-muted-foreground">
-                    {new Date(essay.createdAt).toLocaleDateString("en-US", {
+                    {new Date(essay.updatedAt).toLocaleDateString("en-US", {
                       day: "numeric",
                       month: "long",
                       year: "numeric",

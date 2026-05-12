@@ -9,10 +9,14 @@ const LocalTime = () => {
   useEffect(() => {
     const updateTime = () => {
       const now = new Date();
-      const hours = now.getHours();
-      const minutes = now.getMinutes();
+      const baliTime = now.toLocaleString("en-US", {
+        timeZone: "Asia/Makassar",
+        hour: "2-digit",
+        minute: "2-digit",
+        hourCycle: "h23",
+      })
 
-      setTime(`${hours}:${minutes}`)
+      setTime(baliTime)
     }
     
     updateTime();

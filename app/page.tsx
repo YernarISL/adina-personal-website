@@ -1,8 +1,7 @@
 import Link from "next/link";
 import ModeToggle from "../components/ModeToggle";
 import LocalTime from "@/components/LocalTime";
-import { NotebookPen } from "lucide-react";
-
+import { NotebookPen, Archive } from "lucide-react";
 
 export default function Home() {
   return (
@@ -13,17 +12,22 @@ export default function Home() {
             hey, i am adina
           </h1>
           <p className="text-lg text-muted-foreground mb-4">
-            Привет Адина, это твой личный сайт! Пока, вместо твоего описания
-            здесь красуется мой божественный текст.
+            Тёплый ветер касается кожи, где-то вдали шумит море, а солнце
+            медленно растворяется в горизонте. Казалось бы, что время
+            замедляется, словно давая мыслям наконец догнать сердце.
           </p>
           <p className="text-lg text-muted-foreground mb-4">
-            Твой сайт написан на Next.js, и является почти точной копией сайта
-            https://www.arlanrakh.com/. Ты можешь писать свои эссешки прям на
-            этом сайте благодаря библиотеке TipTap и моему опыту работы с ним.
+            Наверное, есть люди, которых невозможно описать чем-то одним.
+            Иногда, она спокойная, как свет от фоноря поздним вечером, а иногда
+            - яркая до невозможности, способная зажечь других одним присуствием.
+            Её любовь к красивым моментам, та самая романтика и случайные
+            вспышки вдохновения из-за которых мир кажется чуть теплее, чем он
+            есть на самом деле.
           </p>
           <p className="text-lg text-muted-foreground mb-4">
-            Все твои эссешки будут храниться в базе данных PostgreSQL. Если
-            нужно что-то изменить или доработать, ты знаешь, к кому обращаться
+            И возможно именно поэтому такие люди напоминают нам о том, что жить
+            - это не просто двигаться вперёд, а чувствовать ветер, слышать шум
+            волн и не бояться гореть слишком ярко.
           </p>
         </div>
         <div className="mb-8">
@@ -61,25 +65,45 @@ export default function Home() {
                 clipRule="evenodd"
               ></path>
             </svg>
-            <p>shymkent</p>
+            <p>bali</p>
           </div>
           <LocalTime />
         </div>
-        <div className="mb-6 text-muted-foreground">
-          <Link href="admin/new-essay" className="group flex items-center gap-2 text-muted-foreground transition-colors hover:text-foreground">
-              <NotebookPen className="h-5 w-5 transition-colors group-hover:text-foreground"/>
-              <span>Write essay</span>
+        <div className="inline-flex mb-6 text-muted-foreground">
+          <Link
+            href="admin/editor"
+            className="group flex items-center gap-2 text-muted-foreground transition-colors hover:text-foreground"
+          >
+            <NotebookPen className="h-5 w-5 transition-colors group-hover:text-foreground" />
+            <span>write essay</span>
           </Link>
         </div>
         <div className="mb-8">
           <div className="flex flex-wrap gap-4 mb-6 text-muted-foreground">
-            <Link href="/essays">essays</Link>
-            <Link href="/socials">socials</Link>
+            <Link
+              href="/essays"
+              className="hover:text-foreground transition-colors"
+            >
+              essays
+            </Link>
+            <Link
+              href="/socials"
+              className="hover:text-foreground transition-colors"
+            >
+              socials
+            </Link>
           </div>
         </div>
-        <div className="mb-8"></div>
+        <div className="inline-flex">
+          <Link
+            href="/essays/in-archive"
+            className="group flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors cursor-pointer mb-3"
+          >
+            <Archive />
+            <span>archive</span>
+          </Link>
+        </div>
       </main>
-
       <div className="absolute top-4 right-4">
         <ModeToggle />
       </div>

@@ -1,4 +1,5 @@
-import type { Node as PMNode } from "@tiptap/pm/model"
+import { JsonValue } from "@prisma/client/runtime/client"
+import { Node as PMNode } from "@tiptap/pm/model"
 import type { Transaction } from "@tiptap/pm/state"
 import {
   AllSelection,
