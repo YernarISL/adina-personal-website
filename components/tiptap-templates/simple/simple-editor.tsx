@@ -283,7 +283,7 @@ export function SimpleEditor({
         if (!active) return;
         onSendBlocker(res.isUnique);
       } catch (e) {
-        setStatus("Title check failed")
+        setStatus(`Error checking title uniqueness: ${e}`);
         onSendBlocker(true);
       }
     })();
@@ -311,35 +311,6 @@ export function SimpleEditor({
     }, 2000);
     return () => clearTimeout(autosave);
   }, [title, editor, editor?.state.doc, essayId]);
-
-  // useEffect(() => {
-  //   if (!editor || !title) return;
-
-  //   const handler = setTimeout(async () => {
-  //     setStatus("Saving...");
-  //     try {
-  //       const titleIsUniqueCheck = await checkForUniqueTitle(title);
-  //       if (!titleIsUniqueCheck.isUnique && ) {
-  //         setStatus(titleIsUniqueCheck?.message);
-  //         onSendBlocker(titleIsUniqueCheck.isUnique);
-  //       } else {
-  //         const contentJson = JSON.parse(JSON.stringify(editor.getJSON()));
-  //         const saved = await saveEssay(essayId, title, contentJson);
-  //         if (saved.success && saved.id) {
-  //           setEssayId(saved.id);
-  //           setStatus("Saved to " + new Date().toLocaleTimeString());
-  //           onSendBlocker(titleIsUniqueCheck.isUnique);
-  //         } else {
-  //           setStatus("Save error: " + saved.error);
-  //         }
-  //       }
-  //     } catch (e) {
-  //       setStatus(`Save error: ${e}`);
-  //     }
-  //   }, 2000); // 2 секунды задержки
-
-  //   return () => clearTimeout(handler);
-  // }, [title, editor, editor?.state.doc, essayId, onSendBlocker]);
 
   const rect = useCursorVisibility({
     editor,
